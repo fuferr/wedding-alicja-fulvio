@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery — Alicja &amp; Fulvio</title>
+  <meta name="description" content="Photos from Alicja & Fulvio's wedding journey." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ── Navigation ─────────────────────────────────────── -->
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">A &amp; F</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="details.html">Details</a></li>
+      <li><a href="rsvp.html">RSVP</a></li>
+      <li><a href="gallery.html" class="active">Gallery</a></li>
+      <li><a href="registry.html">Registry</a></li>
+      <li><a href="recommendations.html">Tips</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ── Page header ────────────────────────────────────── -->
+  <header class="page-header">
+    <span class="script" style="font-size:4rem;">Our Gallery</span>
+    <div class="ornament" style="max-width:300px; margin:0.8rem auto;">
+      <span class="ornament-icon">✦</span>
+    </div>
+    <p class="caps" style="color:var(--text-light);">Moments we treasure</p>
+  </header>
+
+  <!-- ── Gallery intro ──────────────────────────────────── -->
+  <div class="section" style="padding-bottom:2rem; text-align:center;">
+    <p style="font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-weight:300; font-style:italic; color:var(--text-light); max-width:540px; margin:0 auto; line-height:1.9;">
+      A collection of our favourite memories together — from the very first chapter
+      to the beautiful journey that has brought us here.
+    </p>
+  </div>
+
+  <!-- ── Gallery grid ───────────────────────────────────── -->
+  <div class="section" style="padding-top:0;">
+
+    <!--
+      HOW TO ADD PHOTOS:
+      1. Place your image files in the /img/ folder
+      2. Replace the placeholder divs below with:
+         <div class="gallery-item" data-src="img/your-photo.jpg" data-alt="Caption here">
+           <img src="img/your-photo.jpg" alt="Caption here" loading="lazy" />
+         </div>
+      3. Use class="gallery-item tall" to make an item span 2 rows
+      4. Use class="gallery-item wide" to make an item span 2 columns
+    -->
+
+    <div class="gallery-grid fade-in">
+
+      <!-- Row 1 -->
+      <div class="gallery-item tall">
+        <div class="gallery-placeholder">
+          <span class="gallery-placeholder-icon">🌅</span>
+          <span class="gallery-placeholder-text">Add photo</span>
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <span class="gallery-placeholder-icon">📸</span>
+          <span class="gallery-placeholder-text">Add photo</span>
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <span class="gallery-placeholder-icon">🌿</span>
+          <span class="gallery-placeholder-text">Add photo</span>
+        </div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="gallery-item wide">
+        <div class="gallery-placeholder">
+          <span class="gallery-placeholder-icon">💫</span>
+          <span class="gallery-placeholder-text">Add photo</span>
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <span class="gallery-placeholder-icon">🌊</span>
+          <span class="gallery-placeholder-text">Add photo</span>
+        </div>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <span class="gallery-placeholder-icon">🌸</span>
+          <span class="gallery-placeholder-text">Add photo</span>
+        </div>
+      </div>
+
+      <div class="gallery-item tall">
+        <div class="gallery-placeholder">
+          <span class="gallery-placeholder-icon">🏛</span>
+          <span class="gallery-placeholder-text">Add photo</span>
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <span class="gallery-placeholder-icon">☀️</span>
+          <span class="gallery-placeholder-text">Add photo</span>
+        </div>
+      </div>
+
+      <!-- Row 4 -->
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <span class="gallery-placeholder-icon">🎶</span>
+          <span class="gallery-placeholder-text">Add photo</span>
+        </div>
+      </div>
+
+      <div class="gallery-item wide">
+        <div class="gallery-placeholder">
+          <span class="gallery-placeholder-icon">🥂</span>
+          <span class="gallery-placeholder-text">Add photo</span>
+        </div>
+      </div>
+
+    </div><!-- /.gallery-grid -->
+
+    <!-- Coming soon note -->
+    <div style="text-align:center; margin-top:4rem; padding:3rem; background:var(--ivory); border:1px solid var(--ivory-dark);" class="fade-in">
+      <span class="script" style="font-size:2.5rem; display:block; margin-bottom:0.8rem;">More coming soon</span>
+      <p style="font-size:0.88rem; color:var(--text-light); max-width:480px; margin:0 auto; line-height:1.9;">
+        Wedding photos will be shared here after the celebration.
+        We can't wait to relive the day with you.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ── Lightbox ────────────────────────────────────────── -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo lightbox">
+    <button class="lightbox-close" aria-label="Close lightbox">&times;</button>
+    <img src="" alt="" />
+  </div>
+
+  <!-- ── Footer ─────────────────────────────────────────── -->
+  <footer class="footer">
+    <span class="script">Alicja &amp; Fulvio</span>
+    <p class="caps">11 · 09 · 2026 &nbsp;—&nbsp; Napoli, Italy</p>
+    <div class="footer-divider"></div>
+    <p class="caps" style="font-size:0.65rem;">With love &amp; gratitude for your presence</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
