@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Save the Date — Alicja &amp; Fulvio · 11.09.2026</title>
+  <meta name="description" content="Save the Date — Alicja & Fulvio — 11 September 2026 — Napoli, Italy" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Great+Vibes&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    :root {
+      --cream:      #FAF7F0;
+      --ivory:      #F0EAE0;
+      --navy:       #2C4A6E;
+      --gold:       #B8953A;
+      --gold-light: #D4B483;
+      --text:       #3A3530;
+      --text-light: #7A6E65;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      background: #C8BFAE;
+      font-family: 'Raleway', sans-serif;
+    }
+
+    /* ════════════════════════════════════════════════════
+       ENVELOPE OVERLAY
+    ════════════════════════════════════════════════════ */
+    #env-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--ivory);
+      cursor: pointer;
+      transition: opacity 0.9s ease;
+    }
+    #env-overlay.gone {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .env-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: min(360px, 84vw);
+    }
+
+    /* Envelope body */
+    .env-body {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      background: var(--cream);
+      box-shadow:
+        0 2px 8px rgba(44,74,110,0.07),
+        0 16px 50px rgba(44,74,110,0.13);
+    }
+
+    /* Diagonal fold lines */
+    .env-body::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, transparent calc(50% - 0.5px), rgba(190,175,155,0.6) calc(50% - 0.5px), rgba(190,175,155,0.6) calc(50% + 0.5px), transparent calc(50% + 0.5px)),
+        linear-gradient(225deg, transparent calc(50% - 0.5px), rgba(190,175,155,0.6) calc(50% - 0.5px), rgba(190,175,155,0.6) calc(50% + 0.5px), transparent calc(50% + 0.5px));
+      pointer-events: none;
+    }
+
+    /* Bottom triangle */
+    .env-bottom {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 55%;
+      clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
+      background: linear-gradient(160deg, #F2EAD9, #E8DDC8);
+    }
+
+    /* Top flap */
+    .env-flap-wrap {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 55%;
+      perspective: 850px;
+      z-index: 3;
+    }
+    .env-flap {
+      width: 100%;
+      height: 100%;
+      transform-origin: top center;
+      transform: rotateX(0deg);
+      transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .env-flap-face {
+      width: 100%;
+      height: 100%;
+      clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+      background: linear-gradient(160deg, #EAE0CF, #DDD0BB);
+    }
+    #env-overlay.opening .env-flap {
+      transform: rotateX(-178deg);
+    }
+
+    /* Wax seal */
+    .env-seal {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      width: 82px; height: 82px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 38% 35%, #D4B483 0%, #B8953A 45%, #9c7e30 100%);
+      box-shadow:
+        0 0 0 3px rgba(184,149,58,0.22),
+        0 4px 18px rgba(139,110,30,0.32),
+        inset 0 2px 4px rgba(255,255,255,0.22),
+        inset 0 -2px 6px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .env-seal::before {
+      content: '';
+      position: absolute;
+      inset: 5px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+    .env-seal-text {
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.65rem;
+      color: rgba(255,255,255,0.93);
+      text-shadow: 0 1px 3px rgba(0,0,0,0.22);
+      margin-top: 3px;
+    }
+    #env-overlay:not(.opening):hover .env-seal {
+      transform: translate(-50%, -50%) scale(1.06);
+      box-shadow:
+        0 0 0 4px rgba(184,149,58,0.28),
+        0 6px 24px rgba(139,110,30,0.38),
+        inset 0 2px 4px rgba(255,255,255,0.22),
+        inset 0 -2px 6px rgba(0,0,0,0.15);
+    }
+
+    /* Envelope text */
+    .env-text {
+      margin-top: 2rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .env-names {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.7rem;
+      color: var(--navy);
+      line-height: 1;
+    }
+    .env-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--text-light);
+    }
+    .env-cta {
+      margin-top: 0.8rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      animation: pulse 2.3s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.25; }
+    }
+
+
+    /* ════════════════════════════════════════════════════
+       SAVE THE DATE CARD
+    ════════════════════════════════════════════════════ */
+    #std-wrapper {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 1s ease, transform 1s ease;
+      pointer-events: none;
+      overflow: auto;
+    }
+    #std-wrapper.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: all;
+    }
+
+    .std-card {
+      position: relative;
+      background: var(--cream);
+      width: min(400px, 100vw);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    @media (min-width: 480px) {
+      .std-card {
+        box-shadow: 0 24px 80px rgba(0,0,0,0.22), 0 4px 18px rgba(0,0,0,0.1);
+        border: 1px solid rgba(184,149,58,0.18);
+        max-height: 96vh;
+      }
+    }
+    @media (max-width: 479px) {
+      html, body, #std-wrapper { overflow: auto; height: auto; }
+      .std-card { min-height: 100dvh; }
+    }
+
+    /* Card texture overlay */
+    .std-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 20;
+      opacity: 0.6;
+    }
+
+    /* Gold border frame */
+    .std-frame {
+      position: absolute;
+      inset: 12px;
+      border: 1px solid rgba(184,149,58,0.28);
+      pointer-events: none;
+      z-index: 15;
+    }
+
+    /* Top text */
+    .std-top {
+      padding: 2.2rem 2rem 1.4rem;
+      text-align: center;
+      width: 100%;
+      position: relative;
+      z-index: 5;
+    }
+    .std-eyebrow {
+      font-size: 0.68rem;
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--navy);
+      display: block;
+      margin-bottom: 0.7rem;
+    }
+    .std-gold-line {
+      width: 36px;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 auto;
+      opacity: 0.65;
+    }
+
+    /* Villa image wrapper */
+    .std-villa-wrap {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      z-index: 5;
+    }
+    .villa-img {
+      width: 100%;
+      display: block;
+      position: relative;
+      z-index: 1;
+    }
+    /* Fallback if image missing */
+    .villa-img-placeholder {
+      width: 100%;
+      height: 260px;
+      background: linear-gradient(160deg, #dce8f4 0%, #c8daea 40%, #d4c9b0 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(44,74,110,0.3);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+    }
+
+    /* Sun glow */
+    .sun-glow {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* Sky day→night overlay */
+    .sky-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .sky-overlay.running {
+      opacity: 1;
+      animation: dayToNight 32s ease-in-out forwards;
+    }
+    @keyframes dayToNight {
+      0% {
+        background: linear-gradient(to bottom,
+          rgba(255,235,160,0.0) 0%, transparent 60%);
+      }
+      20% {
+        background: linear-gradient(to bottom,
+          rgba(255,200,90,0.12) 0%,
+          rgba(255,170,70,0.06) 35%,
+          transparent 68%);
+      }
+      45% {
+        background: linear-gradient(to bottom,
+          rgba(255,130,55,0.28) 0%,
+          rgba(210,100,110,0.16) 40%,
+          transparent 75%);
+      }
+      70% {
+        background: linear-gradient(to bottom,
+          rgba(70,45,130,0.42) 0%,
+          rgba(110,65,145,0.22) 45%,
+          transparent 80%);
+      }
+      88% {
+        background: linear-gradient(to bottom,
+          rgba(15,18,60,0.60) 0%,
+          rgba(28,22,75,0.35) 55%,
+          transparent 88%);
+      }
+      100% {
+        background: linear-gradient(to bottom,
+          rgba(8,12,45,0.72) 0%,
+          rgba(20,16,60,0.42) 52%,
+          transparent 86%);
+      }
+    }
+
+    /* Seagulls */
+    .seagulls-layer {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 42%;
+      z-index: 4;
+      pointer-events: none;
+      overflow: visible;
+      transition: opacity 5s ease;
+    }
+    .seagull {
+      position: absolute;
+      pointer-events: none;
+    }
+
+    /* Stars */
+    .stars-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+    }
+    .star {
+      position: absolute;
+      border-radius: 50%;
+      background: #fff;
+      opacity: 0;
+    }
+    .star.lit {
+      animation: star-appear 2s ease forwards, twinkle 3s ease-in-out infinite;
+    }
+    @keyframes star-appear { from{opacity:0} to{opacity:var(--op,.6)} }
+    @keyframes twinkle {
+      0%,100% { opacity: var(--op,.6); }
+      50%      { opacity: calc(var(--op,.6) * 0.3); }
+    }
+
+    /* Candles */
+    .candles-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      pointer-events: none;
+    }
+    .candle-dot {
+      position: absolute;
+      border-radius: 50%;
+      background: #FFD060;
+      opacity: 0;
+      transform: scale(0);
+    }
+    .candle-dot.lit {
+      animation:
+        candle-appear 1.2s ease forwards,
+        candle-flicker var(--cf,1.8s) ease-in-out var(--cd,0s) infinite;
+    }
+    @keyframes candle-appear {
+      0%   { opacity:0; transform:scale(0); }
+      60%  { opacity:1; transform:scale(1.3); }
+      100% { opacity:1; transform:scale(1); }
+    }
+    @keyframes candle-flicker {
+      0%,100% {
+        opacity:1;
+        box-shadow: 0 0 5px 2px rgba(255,200,60,0.9), 0 0 12px 5px rgba(255,150,20,0.45);
+      }
+      30% {
+        opacity:0.55;
+        box-shadow: 0 0 3px 1px rgba(255,200,60,0.5), 0 0 7px 3px rgba(255,150,20,0.25);
+      }
+      70% {
+        opacity:0.9;
+        box-shadow: 0 0 7px 3px rgba(255,210,80,1.0), 0 0 16px 6px rgba(255,150,20,0.55);
+      }
+    }
+
+    /* Card bottom */
+    .std-bottom {
+      padding: 1.6rem 2rem 2.2rem;
+      text-align: center;
+      width: 100%;
+      position: relative;
+      z-index: 5;
+    }
+    .std-names {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.9rem, 8vw, 2.5rem);
+      font-weight: 400;
+      color: var(--navy);
+      display: block;
+      margin-bottom: 0.9rem;
+      line-height: 1.1;
+    }
+    .std-date {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 300;
+      letter-spacing: 0.28em;
+      color: var(--navy);
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    .std-location {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--text-light);
+      display: block;
+      margin-bottom: 1.2rem;
+    }
+    .std-link {
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      text-decoration: none;
+      display: inline-block;
+      border-bottom: 1px solid rgba(184,149,58,0.3);
+      padding-bottom: 1px;
+      transition: color 0.2s ease;
+    }
+    .std-link:hover { color: var(--navy); }
+
+    /* Audio button */
+    #audio-btn {
+      position: fixed;
+      bottom: 1.4rem;
+      right: 1.4rem;
+      z-index: 500;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(44,74,110,0.82);
+      border: 1px solid rgba(212,180,131,0.28);
+      color: var(--cream);
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(6px);
+      transition: background 0.2s ease;
+    }
+    #audio-btn:hover { background: var(--navy); }
+    #audio-btn.show { display: flex; }
+  </style>
+</head>
+<body>
+
+  <!--
+    ══════════════════════════════════════════════════════
+    SOUNDTRACK
+    ══════════════════════════════════════════════════════
+    To add music:
+    1. Create a folder called 'audio' in this project
+    2. Add your MP3 as 'audio/soundtrack.mp3'
+    The music will start when the envelope is opened.
+    ══════════════════════════════════════════════════════
+  -->
+  <audio id="soundtrack" loop preload="none">
+    <source src="audio/soundtrack.mp3" type="audio/mpeg" />
+  </audio>
+
+  <button id="audio-btn" title="Toggle music" aria-label="Toggle music">♪</button>
+
+  <!-- ════════════════════════════════════════════════════
+       ENVELOPE
+  ═════════════════════════════════════════════════════ -->
+  <div id="env-overlay" role="button" tabindex="0" aria-label="Open your save the date">
+    <div class="env-wrap">
+
+      <div class="env-body">
+        <div class="env-bottom"></div>
+        <div class="env-flap-wrap">
+          <div class="env-flap">
+            <div class="env-flap-face"></div>
+          </div>
+        </div>
+        <div class="env-seal">
+          <span class="env-seal-text">A&amp;F</span>
+        </div>
+      </div>
+
+      <div class="env-text">
+        <span class="env-names">Alicja &amp; Fulvio</span>
+        <span class="env-sub">You are cordially invited</span>
+        <span class="env-cta">Tap to open</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════
+       SAVE THE DATE CARD
+  ═════════════════════════════════════════════════════ -->
+  <div id="std-wrapper">
+    <div class="std-card">
+
+      <!-- Gold frame -->
+      <div class="std-frame"></div>
+
+      <!-- Top label -->
+      <div class="std-top">
+        <span class="std-eyebrow">Save the Date</span>
+        <div class="std-gold-line"></div>
+      </div>
+
+      <!-- Villa with all animation layers -->
+      <div class="std-villa-wrap" id="villa-wrap">
+
+        <!-- The villa watercolour image -->
+        <img
+          class="villa-img"
+          id="villa-img"
+          src="img/villa.png"
+          alt="Villa Doria D'Angri, Napoli"
+          onerror="this.style.display='none'; document.getElementById('villa-placeholder').style.display='flex';"
+        />
+        <div class="villa-img-placeholder" id="villa-placeholder" style="display:none;">
+          Villa Doria D'Angri · Napoli
+        </div>
+
+        <!-- Sun glow (moves and sets) -->
+        <div class="sun-glow" id="sun-glow"></div>
+
+        <!-- Stars -->
+        <div class="stars-layer" id="stars-layer"></div>
+
+        <!-- Sky day → night gradient overlay -->
+        <div class="sky-overlay" id="sky-overlay"></div>
+
+        <!-- Seagulls -->
+        <div class="seagulls-layer" id="seagulls-layer"></div>
+
+        <!-- Candle lights on terrace -->
+        <div class="candles-layer" id="candles-layer"></div>
+
+      </div>
+
+      <!-- Bottom text -->
+      <div class="std-bottom">
+        <div class="std-gold-line" style="margin-bottom:1.1rem;"></div>
+        <span class="std-names">Alicja &amp; Fulvio</span>
+        <div class="std-gold-line" style="margin-bottom:0.9rem;"></div>
+        <span class="std-date">11 &nbsp;·&nbsp; 09 &nbsp;·&nbsp; 2026</span>
+        <span class="std-location">Napoli, Italy</span>
+        <a href="index.html" class="std-link">View Full Invitation →</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+  (function () {
+
+    /* ── Envelope open ─────────────────────────────────── */
+    const envOverlay = document.getElementById('env-overlay');
+    const stdWrapper = document.getElementById('std-wrapper');
+    const audioEl    = document.getElementById('soundtrack');
+    const audioBtn   = document.getElementById('audio-btn');
+
+    document.body.style.overflow = 'hidden';
+
+    function openEnvelope() {
+      envOverlay.classList.add('opening');
+      // Try to play soundtrack
+      audioEl.play().catch(() => {});
+
+      setTimeout(() => {
+        envOverlay.classList.add('gone');
+        stdWrapper.classList.add('visible');
+        audioBtn.classList.add('show');
+        document.body.style.overflow = '';
+        initAnimations();
+      }, 950);
+    }
+
+    envOverlay.addEventListener('click', openEnvelope);
+    envOverlay.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') openEnvelope();
+    });
+
+    /* ── Audio toggle ──────────────────────────────────── */
+    let muted = false;
+    audioBtn.addEventListener('click', () => {
+      muted = !muted;
+      audioEl.muted = muted;
+      audioBtn.textContent = muted ? '🔇' : '♪';
+    });
+
+    /* ── All animations start after envelope opens ─────── */
+    function initAnimations() {
+      animateSun();
+      startSky();
+      buildSeagulls();
+      buildStars();
+      buildCandles();
+    }
+
+    /* ── Sun glow: moves from upper-right toward horizon ── */
+    function animateSun() {
+      const sun = document.getElementById('sun-glow');
+      const wrap = document.getElementById('villa-wrap');
+      const h = wrap.offsetHeight || 280;
+      const w = wrap.offsetWidth  || 380;
+
+      sun.style.cssText = `
+        position:absolute;
+        top:8%; right:22%;
+        width:${w * 0.18}px; height:${w * 0.18}px;
+        border-radius:50%;
+        background:radial-gradient(circle, rgba(255,240,140,0.55) 0%, rgba(255,210,80,0.18) 50%, transparent 70%);
+        pointer-events:none;
+        z-index:2;
+        transition: top 32s ease-in-out, right 32s ease-in-out,
+                    width 32s ease-in-out, height 32s ease-in-out,
+                    opacity 32s ease-in-out, background 32s ease-in-out;
+      `;
+
+      // Trigger transition to sunset position
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        sun.style.top    = '42%';
+        sun.style.right  = '2%';
+        sun.style.width  = `${w * 0.14}px`;
+        sun.style.height = `${w * 0.14}px`;
+        sun.style.background = 'radial-gradient(circle, rgba(255,100,30,0.35) 0%, rgba(220,80,20,0.1) 50%, transparent 70%)';
+        sun.style.opacity = '0';
+      }));
+    }
+
+    /* ── Sky overlay ───────────────────────────────────── */
+    function startSky() {
+      const sky = document.getElementById('sky-overlay');
+      // Small delay so the initial warm day state is visible first
+      setTimeout(() => sky.classList.add('running'), 1500);
+    }
+
+    /* ── Seagulls ──────────────────────────────────────── */
+    function buildSeagulls() {
+      const layer = document.getElementById('seagulls-layer');
+      const W = (layer.offsetWidth || 380) + 140;
+
+      // Dynamic keyframes based on real container width
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes fly-ltr { from{transform:translateX(-70px)} to{transform:translateX(${W}px)} }
+        @keyframes fly-rtl { from{transform:translateX(${W}px)} to{transform:translateX(-70px)} }
+        @keyframes wing-flap { 0%,100%{transform:scaleY(1)} 50%{transform:scaleY(0.18)} }
+      `;
+      document.head.appendChild(style);
+
+      const birds = [
+        { top:'9%',  delay:0,   dur:13, flap:0.50, rtl:false, scale:1.0  },
+        { top:'22%', delay:2.8, dur:17, flap:0.55, rtl:false, scale:0.75 },
+        { top:'6%',  delay:5,   dur:14, flap:0.44, rtl:true,  scale:0.85 },
+        { top:'30%', delay:1.2, dur:20, flap:0.60, rtl:false, scale:0.65 },
+        { top:'16%', delay:7.5, dur:12, flap:0.48, rtl:true,  scale:0.9  },
+        { top:'13%', delay:11,  dur:16, flap:0.52, rtl:false, scale:0.7  },
+      ];
+
+      birds.forEach(b => {
+        const el = document.createElement('div');
+        el.className = 'seagull';
+        el.style.top  = b.top;
+        el.style.left = '0';
+        el.style.transformOrigin = 'center';
+
+        const svgW = Math.round(22 * b.scale);
+        const svgH = Math.round(9  * b.scale);
+        el.innerHTML = `
+          <svg width="${svgW}" height="${svgH}" viewBox="0 0 22 9"
+               style="display:block; animation:wing-flap ${b.flap}s ease-in-out infinite; transform-origin:center;">
+            <path d="M0,7 Q5.5,0 11,4 Q16.5,0 22,7"
+                  stroke="rgba(70,70,80,0.65)" stroke-width="1.2"
+                  fill="none" stroke-linecap="round"/>
+          </svg>`;
+        layer.appendChild(el);
+
+        setTimeout(() => {
+          el.style.animation =
+            `fly-${b.rtl ? 'rtl' : 'ltr'} ${b.dur}s linear ${b.delay}s infinite`;
+        }, 300);
+      });
+
+      // Seagulls fade away as night falls (~22s)
+      setTimeout(() => { layer.style.opacity = '0'; }, 22000);
+    }
+
+    /* ── Stars: appear deep into night (~27s) ──────────── */
+    function buildStars() {
+      const layer = document.getElementById('stars-layer');
+      const count = 18;
+
+      for (let i = 0; i < count; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+
+        const size = (Math.random() * 2 + 1).toFixed(1);
+        const op   = (Math.random() * 0.35 + 0.4).toFixed(2);
+        star.style.width   = size + 'px';
+        star.style.height  = size + 'px';
+        star.style.left    = (Math.random() * 88 + 4) + '%';
+        star.style.top     = (Math.random() * 32 + 1) + '%';
+        star.style.setProperty('--op', op);
+        layer.appendChild(star);
+
+        setTimeout(() => {
+          star.classList.add('lit');
+          star.style.animationDelay = (Math.random() * 2).toFixed(1) + 's, ' +
+                                       (Math.random() * 1.5).toFixed(1) + 's';
+        }, 27000 + i * 350);
+      }
+    }
+
+    /* ── Candle lights: appear as night falls (~20s) ────── */
+    function buildCandles() {
+      const layer = document.getElementById('candles-layer');
+
+      // Candles spread along the terrace balustrade
+      // Approximate position: 59-64% from top of the image, 12-88% horizontal
+      const positions = [
+        { l:'13%', t:'61%' }, { l:'19%', t:'60%' }, { l:'25%', t:'61.5%' },
+        { l:'32%', t:'60%' }, { l:'39%', t:'61%' }, { l:'46%', t:'60.5%' },
+        { l:'52%', t:'61%' }, { l:'59%', t:'60%' }, { l:'65%', t:'61.5%' },
+        { l:'71%', t:'60%' }, { l:'78%', t:'61%' }, { l:'84%', t:'60.5%' },
+      ];
+
+      positions.forEach((p, i) => {
+        const dot = document.createElement('div');
+        dot.className = 'candle-dot';
+
+        const dotSize = (2.5 + Math.random()).toFixed(1);
+        dot.style.width  = dotSize + 'px';
+        dot.style.height = dotSize + 'px';
+        dot.style.left = p.l;
+        dot.style.top  = p.t;
+        dot.style.setProperty('--cf', (1.4 + Math.random() * 0.8).toFixed(1) + 's');
+        dot.style.setProperty('--cd', (Math.random() * 0.4).toFixed(2) + 's');
+        layer.appendChild(dot);
+
+        // Stagger lighting across the terrace
+        setTimeout(() => {
+          dot.classList.add('lit');
+        }, 20500 + i * 280 + Math.random() * 200);
+      });
+    }
+
+  })();
+  </script>
+</body>
+</html>
