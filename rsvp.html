@@ -8,6 +8,62 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .guest-names-section {
+      background: var(--cream);
+      border: 1px solid var(--ivory-dark);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      margin-bottom: 1.6rem;
+    }
+    .guest-name-row {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.8rem;
+      align-items: center;
+    }
+    .guest-name-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--navy);
+      white-space: nowrap;
+      min-width: 90px;
+    }
+    .guest-count-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .guest-count-display {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      color: var(--navy);
+      min-width: 2ch;
+      text-align: center;
+    }
+    .deadline-banner {
+      background: var(--navy);
+      color: var(--cream);
+      padding: 1.2rem 1.5rem;
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+    .deadline-banner .deadline-main {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+    }
+    .deadline-banner .deadline-sub {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: var(--gold-light);
+      font-weight: 500;
+    }
+  </style>
 </head>
 <body>
 
@@ -54,12 +110,25 @@
           <span>Friday, 11 September 2026</span>
         </div>
         <div class="rsvp-info-item">
-          <span class="rsvp-info-icon">📍</span>
-          <span>Napoli, Italy</span>
+          <span class="rsvp-info-icon">⛪</span>
+          <span>Chiesa Santa Maria del Faro a Marechiaro — 15:30</span>
+        </div>
+        <div class="rsvp-info-item">
+          <span class="rsvp-info-icon">🏛</span>
+          <span>Villa Doria D'Angri — from 17:00</span>
         </div>
         <div class="rsvp-info-item">
           <span class="rsvp-info-icon">✉️</span>
-          <span>Deadline: 1 June 2026</span>
+          <span>Deadline: <strong>1 June 2026</strong></span>
+        </div>
+
+        <!-- Deadline urgency box -->
+        <div style="background:var(--ivory); border:1px solid var(--ivory-dark); border-left:3px solid var(--gold); padding:1rem 1.2rem; margin-top:1rem;">
+          <p style="font-size:0.78rem; color:var(--navy); font-weight:600; margin-bottom:0.3rem;">Early responses are highly appreciated</p>
+          <p style="font-size:0.78rem; color:var(--text-light); line-height:1.7;">
+            Confirming early helps us plan catering, seating and accommodation for you.
+            Even a quick response makes a big difference — thank you!
+          </p>
         </div>
 
         <div style="height:1px; background:var(--ivory-dark); margin:2rem 0;"></div>
@@ -75,10 +144,9 @@
       <!-- Form area -->
       <div class="fade-in">
 
-        <!-- Form -->
         <div class="rsvp-form" id="rsvp-form-wrapper">
           <h3>Your RSVP</h3>
-          <p class="form-subtitle">Fields marked * are required.</p>
+          <p class="form-subtitle">All fields marked * are required.</p>
 
           <form id="rsvp-form" novalidate>
 
@@ -96,21 +164,33 @@
               </div>
             </div>
 
-            <div class="form-row">
-              <div class="form-group">
-                <label for="phone">Phone (optional)</label>
-                <input type="tel" id="phone" name="phone" placeholder="+39 123 456 7890" autocomplete="tel" />
+            <div class="form-group">
+              <label for="phone">Phone Number *</label>
+              <input type="tel" id="phone" name="phone" placeholder="+39 123 456 7890" required autocomplete="tel" />
+            </div>
+
+            <!-- Guest count + names -->
+            <p class="form-section-label">How Many Guests Are You Bringing?</p>
+
+            <div class="form-group" style="margin-bottom:0.8rem;">
+              <label>Total guests attending (including yourself) *</label>
+              <div class="guest-count-controls">
+                <button type="button" id="guests-decrease" class="btn btn-outline"
+                        style="padding:0.55rem 1rem; font-size:1.1rem; line-height:1;">−</button>
+                <span class="guest-count-display" id="guests-display">1</span>
+                <button type="button" id="guests-increase" class="btn btn-outline"
+                        style="padding:0.55rem 1rem; font-size:1.1rem; line-height:1;">+</button>
+                <input type="hidden" id="guests" name="guests" value="1" />
               </div>
-              <div class="form-group">
-                <label for="guests">Number of Guests (including you)</label>
-                <div style="display:flex; align-items:center; gap:0.8rem;">
-                  <button type="button" id="guests-decrease" class="btn btn-outline"
-                          style="padding:0.55rem 1rem; font-size:1.1rem; line-height:1;">−</button>
-                  <input type="number" id="guests" name="guests" value="1" min="1" max="10"
-                         style="text-align:center; width:60px; flex-shrink:0;" readonly />
-                  <button type="button" id="guests-increase" class="btn btn-outline"
-                          style="padding:0.55rem 1rem; font-size:1.1rem; line-height:1;">+</button>
-                </div>
+            </div>
+
+            <!-- Dynamic guest name fields -->
+            <div class="guest-names-section" id="guest-names-section">
+              <p style="font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; font-weight:600; color:var(--navy); margin-bottom:0.4rem;">
+                Full name of each guest *
+              </p>
+              <div id="guest-name-fields">
+                <!-- Populated by JS -->
               </div>
             </div>
 
@@ -122,13 +202,13 @@
                 <input type="checkbox" name="day1" value="yes" />
                 <p class="attendance-card-day">Day 1 — Friday 11 Sept</p>
                 <p class="attendance-card-title">Ceremony &amp; Dinner</p>
-                <p class="attendance-card-desc">The main celebration, ceremony, cocktail hour and dinner.</p>
+                <p class="attendance-card-desc">Church at 15:30 · Villa Doria D'Angri from 17:00 · Until 00:30</p>
               </div>
               <div class="attendance-card" data-day="2">
                 <input type="checkbox" name="day2" value="yes" />
                 <p class="attendance-card-day">Day 2 — Saturday 12 Sept</p>
-                <p class="attendance-card-title">Farewell Brunch</p>
-                <p class="attendance-card-desc">A relaxed morning gathering before heading home.</p>
+                <p class="attendance-card-title">Lido &amp; Pizza Party</p>
+                <p class="attendance-card-desc">Baia delle Rocce Verdi from 14:00 · Nonno's garden pizza from 18:00 · Until 23:00</p>
               </div>
             </div>
 
@@ -175,9 +255,9 @@
               Send My RSVP
             </button>
 
-            <div class="rsvp-deadline">
-              <strong>RSVP deadline: 1 June 2026</strong><br />
-              Late responses may not be accommodated for seating &amp; catering.
+            <div class="deadline-banner">
+              <p class="deadline-main">RSVP deadline: <strong>1 June 2026</strong></p>
+              <p class="deadline-sub">✦ &nbsp; Early responses are highly appreciated &nbsp; ✦</p>
             </div>
 
           </form>
@@ -213,16 +293,69 @@
 
   <script src="js/main.js"></script>
   <script>
-    // Show dietary "other" input when "Other" chip is selected
     document.addEventListener('DOMContentLoaded', () => {
+
+      // ── Dietary "other" toggle ─────────────────────────
       const otherChip  = document.querySelector('.chip[data-value="other"]');
       const otherGroup = document.getElementById('dietary-other-group');
       if (otherChip && otherGroup) {
-        // Use MutationObserver to watch class changes on the chip
         new MutationObserver(() => {
           otherGroup.style.display = otherChip.classList.contains('selected') ? 'flex' : 'none';
         }).observe(otherChip, { attributes: true, attributeFilter: ['class'] });
       }
+
+      // ── Dynamic guest name fields ──────────────────────
+      const guestsInput   = document.getElementById('guests');
+      const guestsDisplay = document.getElementById('guests-display');
+      const nameFields    = document.getElementById('guest-name-fields');
+      const decreaseBtn   = document.getElementById('guests-decrease');
+      const increaseBtn   = document.getElementById('guests-increase');
+
+      function renderNameFields(count) {
+        // Preserve existing values
+        const existing = {};
+        nameFields.querySelectorAll('input[data-index]').forEach(inp => {
+          existing[inp.dataset.index] = inp.value;
+        });
+
+        nameFields.innerHTML = '';
+        for (let i = 0; i < count; i++) {
+          const label = i === 0 ? 'You' : `Guest ${i + 1}`;
+          const row = document.createElement('div');
+          row.className = 'guest-name-row';
+          row.innerHTML = `
+            <span class="guest-name-label">${label}</span>
+            <input type="text"
+                   name="guest_name_${i + 1}"
+                   data-index="${i}"
+                   placeholder="Full name"
+                   required
+                   style="background:var(--white); border:1px solid var(--ivory-dark); padding:0.7rem 1rem; font-family:'Raleway',sans-serif; font-size:0.9rem; font-weight:300; color:var(--text); outline:none; width:100%;"
+                   value="${existing[i] || ''}" />
+          `;
+          nameFields.appendChild(row);
+        }
+      }
+
+      function setGuestCount(count) {
+        guestsInput.value   = count;
+        guestsDisplay.textContent = count;
+        decreaseBtn.disabled = count <= 1;
+        increaseBtn.disabled = count >= 10;
+        renderNameFields(count);
+      }
+
+      decreaseBtn.addEventListener('click', () => {
+        const v = parseInt(guestsInput.value, 10);
+        if (v > 1) setGuestCount(v - 1);
+      });
+      increaseBtn.addEventListener('click', () => {
+        const v = parseInt(guestsInput.value, 10);
+        if (v < 10) setGuestCount(v + 1);
+      });
+
+      // Initialise with 1 guest
+      setGuestCount(1);
     });
   </script>
   <script src="js/rsvp.js"></script>

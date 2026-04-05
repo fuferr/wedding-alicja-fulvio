@@ -73,6 +73,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Collect dietary "other" text
     const dietaryOther = document.getElementById('dietary-other')?.value?.trim() || '';
 
+    // Collect guest names
+    const guestNames = [];
+    form.querySelectorAll('[data-index]').forEach(inp => {
+      const val = inp.value.trim();
+      if (val) guestNames.push(val);
+    });
+
     const payload = {
       name:          form.querySelector('#name')?.value?.trim()  || '',
       email:         form.querySelector('#email')?.value?.trim() || '',
@@ -80,14 +87,20 @@ document.addEventListener('DOMContentLoaded', () => {
       day1:          day1 ? 'Yes' : 'No',
       day2:          day2 ? 'Yes' : 'No',
       guests:        form.querySelector('#guests')?.value        || '1',
+      guest_names:   guestNames.join(' | '),
       dietary:       dietarySelected.length ? dietarySelected.join(', ') : 'None',
       dietary_other: dietaryOther,
       song:          form.querySelector('#song')?.value?.trim()  || '',
       notes:         form.querySelector('#notes')?.value?.trim() || '',
     };
 
-    if (!payload.name || !payload.email) {
-      showToast('Please fill in your name and email.', 'error');
+    if (!payload.name || !payload.email || !payload.phone) {
+      showToast('Please fill in your name, email and phone number.', 'error');
+      return;
+    }
+
+    if (!guestNames.length) {
+      showToast('Please enter the full name of each guest.', 'error');
       return;
     }
 

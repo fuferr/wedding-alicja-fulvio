@@ -8,6 +8,247 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ── Details-page extra styles ────────────────────────── */
+    .venue-hero {
+      position: relative;
+      overflow: hidden;
+      background: var(--navy);
+      padding: 5rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .venue-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 0% 100%, rgba(212,180,131,0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 100% 0%, rgba(122,152,114,0.10) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .venue-hero-text { position: relative; }
+    .venue-hero-text .caps { color: var(--gold-light); margin-bottom: 1rem; display: block; }
+    .venue-hero-text h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+      line-height: 1.15;
+    }
+    .venue-hero-text .script {
+      font-size: 2rem;
+      color: var(--gold-light);
+      display: block;
+      margin-bottom: 1.5rem;
+    }
+    .venue-hero-text p { color: rgba(250,247,240,0.7); font-size: 0.92rem; line-height: 1.9; }
+
+    .venue-map-card {
+      position: relative;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(212,180,131,0.25);
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .venue-location-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.2rem;
+    }
+    .venue-location-icon {
+      width: 2.8rem;
+      height: 2.8rem;
+      background: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+      color: var(--white);
+    }
+    .venue-location-info { flex: 1; }
+    .venue-location-info .label {
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+    .venue-location-info .name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      color: var(--cream);
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+    .venue-location-info .addr {
+      font-size: 0.78rem;
+      color: rgba(250,247,240,0.5);
+    }
+    .venue-location-info a {
+      font-size: 0.72rem;
+      color: var(--gold-light);
+      letter-spacing: 0.1em;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .venue-divider { height: 1px; background: rgba(212,180,131,0.2); }
+
+    /* Illustrated location panels */
+    .location-panels {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+    .location-panel {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--ivory-dark);
+      background: var(--ivory);
+    }
+    .location-panel-top {
+      height: 220px;
+      background: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Decorative watercolour-style background for church panel */
+    .location-panel-top.church {
+      background: linear-gradient(160deg, #e8eff8 0%, #d6e4f0 40%, #c9dde9 100%);
+    }
+    /* Decorative watercolour-style background for villa panel */
+    .location-panel-top.villa {
+      background: linear-gradient(160deg, #f5f0e0 0%, #ede4c8 40%, #e5d9b8 100%);
+    }
+    .location-panel-illustration {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .location-panel-icon { font-size: 4rem; opacity: 0.85; }
+    .location-panel-arch {
+      width: 80px;
+      height: 40px;
+      border: 2px solid rgba(44,74,110,0.25);
+      border-radius: 40px 40px 0 0;
+      border-bottom: none;
+    }
+    .location-panel-columns {
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+    }
+    .location-panel-col {
+      width: 8px;
+      background: rgba(44,74,110,0.18);
+      border-radius: 2px 2px 0 0;
+    }
+    .location-panel-body { padding: 1.8rem 2rem; }
+    .location-panel-tag {
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+    .location-panel-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      color: var(--navy);
+      margin-bottom: 0.4rem;
+      line-height: 1.2;
+    }
+    .location-panel-addr {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+      line-height: 1.7;
+    }
+    .location-panel-time {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--navy);
+      color: var(--cream);
+      padding: 0.35rem 0.9rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+    }
+
+    /* Dress code panels */
+    .dress-panels {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+    .dress-panel {
+      padding: 2.5rem;
+      border: 1px solid var(--ivory-dark);
+    }
+    .dress-panel.day1 { background: var(--navy); }
+    .dress-panel.day2 { background: var(--ivory); }
+    .dress-panel-day {
+      font-size: 0.62rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    .dress-panel.day1 .dress-panel-day { color: var(--gold-light); }
+    .dress-panel.day2 .dress-panel-day { color: var(--gold); }
+    .dress-panel-title {
+      margin-bottom: 1.5rem;
+    }
+    .dress-panel.day1 .dress-panel-title { color: var(--cream); }
+    .dress-panel.day2 .dress-panel-title { color: var(--navy); }
+    .dress-rule {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .dress-rule-icon {
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .dress-rule-text { font-size: 0.88rem; line-height: 1.7; }
+    .dress-panel.day1 .dress-rule-text { color: rgba(250,247,240,0.8); }
+    .dress-panel.day2 .dress-rule-text { color: var(--text-light); }
+    .dress-rule-text strong { font-weight: 600; }
+    .dress-panel.day1 .dress-rule-text strong { color: var(--cream); }
+    .dress-panel.day2 .dress-rule-text strong { color: var(--navy); }
+    .dress-note {
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid;
+      font-size: 0.78rem;
+      font-style: italic;
+    }
+    .dress-panel.day1 .dress-note { border-color: rgba(212,180,131,0.3); color: rgba(250,247,240,0.5); }
+    .dress-panel.day2 .dress-note { border-color: var(--ivory-dark); color: var(--text-light); }
+
+    @media (max-width: 900px) {
+      .venue-hero { grid-template-columns: 1fr; padding: 3rem 2rem; }
+      .location-panels { grid-template-columns: 1fr; }
+      .dress-panels { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
@@ -36,60 +277,212 @@
     <p class="caps" style="color:var(--text-light);">11 · 09 · 2026 &nbsp;—&nbsp; Napoli, Italy</p>
   </header>
 
-  <!-- ── Venue card ─────────────────────────────────────── -->
-  <div class="section fade-in">
-
-    <div class="venue-card" style="margin-bottom:3rem;">
-      <div>
-        <p class="caps" style="color:var(--gold); margin-bottom:1.5rem;">The Venue</p>
-        <h2 style="font-size:2.2rem; margin-bottom:1.5rem;">
-          Villa &amp; Surroundings<br />
-          <span style="font-size:1.1rem; font-weight:300; font-style:italic; color:var(--text-light);">Napoli, Campania</span>
-        </h2>
-
-        <div class="venue-detail">
-          <span class="label">Address</span>
-          <span class="value">To be confirmed — Napoli, Italy</span>
-        </div>
-        <div class="venue-detail">
-          <span class="label">Nearest Airport</span>
-          <span class="value">Naples International (NAP) — 20 min by taxi</span>
-        </div>
-        <div class="venue-detail">
-          <span class="label">Parking</span>
-          <span class="value">Available on-site. We also recommend staying in the city centre.</span>
-        </div>
-
-        <a href="recommendations.html" class="btn btn-outline" style="margin-top:1.5rem;">Travel &amp; Hotels</a>
-      </div>
-
-      <div style="background:var(--cream); border:1px solid var(--ivory-dark); aspect-ratio:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.5rem; color:var(--text-light);">
-        <span style="font-size:3rem; opacity:0.3;">📍</span>
-        <p class="caps" style="font-size:0.62rem; opacity:0.5;">Map coming soon</p>
-        <p style="font-size:0.75rem; opacity:0.4; text-align:center; padding:0 1rem;">
-          Full address &amp; Google Maps link<br/>will be shared closer to the date
-        </p>
-      </div>
-    </div>
-
-    <!-- Dress code -->
-    <div class="dress-code-card fade-in" style="margin-bottom:5rem;">
-      <span class="script">Dress Code</span>
-      <div class="ornament" style="max-width:300px; margin:1rem auto;">
-        <span class="ornament-icon">✦</span>
-      </div>
-      <h3 style="font-size:1.4rem; color:var(--cream); letter-spacing:0.15em; margin-bottom:0.5rem;">
-        Elegant Mediterranean
-      </h3>
+  <!-- ── Venues hero ────────────────────────────────────── -->
+  <div class="venue-hero">
+    <div class="venue-hero-text fade-in">
+      <span class="caps">The Locations</span>
+      <h2>A Day to Remember<br />in the Heart of Napoli</h2>
+      <span class="script">Napoli, Italy</span>
       <p>
-        We invite you to dress in the spirit of a Southern Italian summer celebration.
-        Think flowing silhouettes, linen fabrics, soft colours — creams, whites, dusty blues,
-        terracottas and warm neutrals. Formal but coastal. Beautiful but comfortable.
-        <br /><br />
-        <em style="opacity:0.8;">Please avoid all-black and bright neons. Stiletto heels may struggle on cobblestone.</em>
+        Our celebration unfolds across two of Naples' most cherished and breathtaking
+        settings — a historic church by the sea, and one of the city's most
+        magnificent villas overlooking the Bay of Naples and Mount Vesuvius.
       </p>
     </div>
 
+    <div class="venue-map-card fade-in">
+
+      <div class="venue-location-row">
+        <div class="venue-location-icon">⛪</div>
+        <div class="venue-location-info">
+          <span class="label">Ceremony — 15:30</span>
+          <span class="name">Chiesa Santa Maria del Faro a Marechiaro</span>
+          <span class="addr">Via Marechiaro, Posillipo, Napoli</span>
+          <br />
+          <a href="https://maps.google.com/?q=Chiesa+Santa+Maria+del+Faro+a+Marechiaro+Napoli"
+             target="_blank" rel="noopener">Open in Google Maps →</a>
+        </div>
+      </div>
+
+      <div class="venue-divider"></div>
+
+      <div class="venue-location-row">
+        <div class="venue-location-icon">🏛</div>
+        <div class="venue-location-info">
+          <span class="label">Reception — from 17:00</span>
+          <span class="name">Villa Doria D'Angri</span>
+          <span class="addr">Via Domenico Cimarosa 77, Vomero, Napoli</span>
+          <br />
+          <a href="https://maps.google.com/?q=Villa+Doria+d%27Angri+Napoli"
+             target="_blank" rel="noopener">Open in Google Maps →</a>
+        </div>
+      </div>
+
+      <div class="venue-divider"></div>
+
+      <div class="venue-location-row">
+        <div class="venue-location-icon">✈️</div>
+        <div class="venue-location-info">
+          <span class="label">Nearest Airport</span>
+          <span class="name">Naples International (NAP)</span>
+          <span class="addr">~20 minutes by taxi from the city centre</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Location illustration panels ──────────────────── -->
+  <div class="section" style="padding-bottom:1rem;">
+    <div class="location-panels fade-in">
+
+      <!-- Church -->
+      <div class="location-panel">
+        <div class="location-panel-top church">
+          <div class="location-panel-illustration">
+            <div class="location-panel-arch" style="width:60px; height:30px; border-color:rgba(44,74,110,0.3);"></div>
+            <div style="font-size:3.5rem;">⛪</div>
+            <div style="display:flex; gap:6px;">
+              <div class="location-panel-col" style="height:35px;"></div>
+              <div class="location-panel-col" style="height:50px;"></div>
+              <div class="location-panel-col" style="height:40px;"></div>
+            </div>
+          </div>
+          <!-- Decorative waves -->
+          <div style="position:absolute; bottom:0; left:0; right:0; height:30px; opacity:0.2;">
+            <svg viewBox="0 0 400 30" preserveAspectRatio="none" style="width:100%; height:100%;">
+              <path d="M0,15 Q100,0 200,15 Q300,30 400,15 L400,30 L0,30 Z" fill="#2C4A6E"/>
+            </svg>
+          </div>
+        </div>
+        <div class="location-panel-body">
+          <span class="location-panel-tag">The Ceremony</span>
+          <h3 class="location-panel-name">Chiesa Santa Maria<br />del Faro a Marechiaro</h3>
+          <p class="location-panel-addr">
+            A jewel of Posillipo perched above the sea — this intimate and luminous church
+            has watched over Naples for centuries. With the Mediterranean as its backdrop,
+            our vows will be spoken in one of the most romantic settings imaginable.
+          </p>
+          <span class="location-panel-time">⏰ &nbsp;Ceremony begins at 15:30</span>
+        </div>
+      </div>
+
+      <!-- Villa -->
+      <div class="location-panel">
+        <div class="location-panel-top villa">
+          <div class="location-panel-illustration">
+            <div class="location-panel-columns">
+              <div class="location-panel-col" style="height:70px; background:rgba(139,101,40,0.25);"></div>
+              <div class="location-panel-col" style="height:85px; background:rgba(139,101,40,0.25);"></div>
+              <div class="location-panel-col" style="height:85px; background:rgba(139,101,40,0.25);"></div>
+              <div class="location-panel-col" style="height:70px; background:rgba(139,101,40,0.25);"></div>
+            </div>
+            <div style="width:120px; height:2px; background:rgba(139,101,40,0.3);"></div>
+            <div style="font-size:3.5rem;">🏛</div>
+          </div>
+          <!-- Decorative hills -->
+          <div style="position:absolute; bottom:0; left:0; right:0; height:40px; opacity:0.15;">
+            <svg viewBox="0 0 400 40" preserveAspectRatio="none" style="width:100%; height:100%;">
+              <path d="M0,40 Q100,10 200,25 Q300,40 400,20 L400,40 Z" fill="#7A9872"/>
+            </svg>
+          </div>
+        </div>
+        <div class="location-panel-body">
+          <span class="location-panel-tag">The Reception</span>
+          <h3 class="location-panel-name">Villa Doria D'Angri</h3>
+          <p class="location-panel-addr">
+            A majestic neoclassical villa in the Vomero hills, with sweeping panoramic views
+            of the Bay of Naples and Vesuvius. Its grand terraces and ornate gardens set the
+            stage for an unforgettable evening under the stars.
+          </p>
+          <span class="location-panel-time">⏰ &nbsp;Reception from 17:00</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Dress code ─────────────────────────────────────── -->
+  <div class="section" style="padding-top:1rem; padding-bottom:1rem;">
+    <div class="section-title section-center fade-in" style="margin-bottom:2rem;">
+      <span class="script" style="font-size:3.2rem;">Dress Code</span>
+      <div class="ornament" style="max-width:300px; margin:0.5rem auto 0;">
+        <span class="ornament-icon">✦</span>
+      </div>
+    </div>
+
+    <div class="dress-panels fade-in">
+
+      <!-- Day 1 -->
+      <div class="dress-panel day1">
+        <span class="dress-panel-day">Day 1 — Friday 11 September</span>
+        <h3 class="dress-panel-title" style="font-size:1.8rem;">Formal Elegance</h3>
+
+        <div class="dress-rule">
+          <span class="dress-rule-icon">👔</span>
+          <div class="dress-rule-text">
+            <strong>Men</strong> — Suit required. Tie is optional but welcomed.
+            Dark or light suits both work beautifully in the Neapolitan summer.
+          </div>
+        </div>
+
+        <div class="dress-rule">
+          <span class="dress-rule-icon">👗</span>
+          <div class="dress-rule-text">
+            <strong>Women</strong> — Long dress. Flowing gowns, elegant maxi dresses
+            or formal floor-length styles. Soft and Mediterranean palettes encouraged.
+          </div>
+        </div>
+
+        <div class="dress-rule">
+          <span class="dress-rule-icon">🎨</span>
+          <div class="dress-rule-text">
+            Think creams, dusty blues, sage greens, terracotta and warm golds.
+            Please avoid all-white and all-black.
+          </div>
+        </div>
+
+        <p class="dress-note">
+          Stiletto heels may struggle on historic cobblestone — block heels or wedges
+          are a practical and stylish choice for the church.
+        </p>
+      </div>
+
+      <!-- Day 2 -->
+      <div class="dress-panel day2">
+        <span class="dress-panel-day">Day 2 — Saturday 12 September</span>
+        <h3 class="dress-panel-title" style="font-size:1.8rem;">Linen &amp; Beach Cocktail</h3>
+
+        <div class="dress-rule">
+          <span class="dress-rule-icon">👕</span>
+          <div class="dress-rule-text">
+            <strong>Men</strong> — Linen trousers and a relaxed linen or cotton shirt.
+            Casual chic — think Capri boat trip meets coastal terrace lunch.
+          </div>
+        </div>
+
+        <div class="dress-rule">
+          <span class="dress-rule-icon">👙</span>
+          <div class="dress-rule-text">
+            <strong>Women</strong> — Cocktail dress, midi dress, linen co-ord or
+            beach-elegant separates. Sun hat welcome at the lido!
+          </div>
+        </div>
+
+        <div class="dress-rule">
+          <span class="dress-rule-icon">🌊</span>
+          <div class="dress-rule-text">
+            We'll be spending time at the sea — comfortable, breathable and beautiful.
+            Bring a swimsuit if you'd like to take a dip!
+          </div>
+        </div>
+
+        <p class="dress-note">
+          Day 2 is relaxed and joyful. Dress for the Mediterranean summer — easy, breezy and lovely.
+        </p>
+      </div>
+
+    </div>
   </div>
 
   <!-- ── Day 1 schedule ─────────────────────────────────── -->
@@ -106,44 +499,71 @@
 
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <p class="timeline-time">16:00</p>
-          <h3 class="timeline-title">Guest Arrival</h3>
-          <p class="timeline-desc">Guests are welcomed with an aperitivo and a glass of Prosecco in the gardens.</p>
+          <p class="timeline-time">15:00</p>
+          <h3 class="timeline-title">Guests Arrive at the Church</h3>
+          <p class="timeline-desc">
+            Please be seated at <strong>Chiesa Santa Maria del Faro a Marechiaro</strong> by 15:15.
+            The church doors open from 15:00.
+          </p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <p class="timeline-time">15:30</p>
+          <h3 class="timeline-title">The Ceremony</h3>
+          <p class="timeline-desc">
+            A religious ceremony in the luminous church of Marechiaro, overlooking the sea.
+            Conducted in Italian and English.
+          </p>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <p class="timeline-time">17:00</p>
-          <h3 class="timeline-title">The Ceremony</h3>
-          <p class="timeline-desc">An intimate and romantic civil ceremony overlooking the Bay of Naples.</p>
+          <h3 class="timeline-title">Arrival at Villa Doria D'Angri</h3>
+          <p class="timeline-desc">
+            Guests are welcomed at the magnificent Villa Doria D'Angri with aperitivo,
+            Prosecco and canapés on the panoramic terrace.
+          </p>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <p class="timeline-time">18:00</p>
+          <p class="timeline-time">18:30</p>
           <h3 class="timeline-title">Cocktail Hour</h3>
-          <p class="timeline-desc">Drinks, canapés and the first golden hour of the evening on the terrace.</p>
+          <p class="timeline-desc">
+            Drinks, light bites and the golden Neapolitan sunset over the Bay of Naples
+            and Mount Vesuvius. An hour you will not forget.
+          </p>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <p class="timeline-time">20:00</p>
           <h3 class="timeline-title">Wedding Dinner</h3>
-          <p class="timeline-desc">A long Italian table, Neapolitan cuisine, fine wines and toasts under the stars.</p>
+          <p class="timeline-desc">
+            A grand Neapolitan dinner — long tables, seasonal cuisine, fine wines
+            and heartfelt toasts under the stars of the villa gardens.
+          </p>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <p class="timeline-time">22:30</p>
-          <h3 class="timeline-title">Dancing &amp; Celebration</h3>
-          <p class="timeline-desc">First dance, cake cutting, and a night of music, laughter and joy.</p>
+          <p class="timeline-time">22:00</p>
+          <h3 class="timeline-title">First Dance &amp; Celebrations</h3>
+          <p class="timeline-desc">
+            First dance, cake cutting, and an evening of music, laughter and dancing.
+          </p>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <p class="timeline-time">01:00</p>
+          <p class="timeline-time">00:30</p>
           <h3 class="timeline-title">End of Evening</h3>
-          <p class="timeline-desc">Transfer arrangements available back to city-centre hotels.</p>
+          <p class="timeline-desc">
+            Transfer arrangements available back to city-centre hotels.
+            <em>Arrivederci — until tomorrow!</em>
+          </p>
         </div>
 
       </div>
@@ -159,18 +579,23 @@
             </div>
             <div style="height:1px; background:var(--ivory-dark);"></div>
             <div>
-              <p style="font-weight:500; font-size:0.88rem; color:var(--navy); margin-bottom:0.2rem;">Children</p>
-              <p style="font-size:0.85rem; color:var(--text-light);">Children are warmly welcome. Please indicate the number of little guests when you RSVP.</p>
+              <p style="font-weight:500; font-size:0.88rem; color:var(--navy); margin-bottom:0.2rem;">Unplugged ceremony</p>
+              <p style="font-size:0.85rem; color:var(--text-light);">We kindly ask for phones away during the vows. Our photographer will capture every moment.</p>
             </div>
             <div style="height:1px; background:var(--ivory-dark);"></div>
             <div>
-              <p style="font-weight:500; font-size:0.88rem; color:var(--navy); margin-bottom:0.2rem;">Photography</p>
-              <p style="font-size:0.85rem; color:var(--text-light);">We kindly ask for an unplugged ceremony — please keep phones away during the vows.</p>
+              <p style="font-weight:500; font-size:0.88rem; color:var(--navy); margin-bottom:0.2rem;">Children</p>
+              <p style="font-size:0.85rem; color:var(--text-light);">Children are warmly welcome. Please note the number of little guests when you RSVP.</p>
             </div>
             <div style="height:1px; background:var(--ivory-dark);"></div>
             <div>
               <p style="font-weight:500; font-size:0.88rem; color:var(--navy); margin-bottom:0.2rem;">Dietary needs</p>
-              <p style="font-size:0.85rem; color:var(--text-light);">All dietary requirements are noted in the RSVP form — we will accommodate everyone.</p>
+              <p style="font-size:0.85rem; color:var(--text-light);">All dietary requirements are collected in the RSVP — we will accommodate everyone.</p>
+            </div>
+            <div style="height:1px; background:var(--ivory-dark);"></div>
+            <div>
+              <p style="font-weight:500; font-size:0.88rem; color:var(--navy); margin-bottom:0.2rem;">Getting between venues</p>
+              <p style="font-size:0.85rem; color:var(--text-light);">The church and villa are both in Naples. We recommend arranging a taxi — journey is approx. 15–20 min.</p>
             </div>
           </div>
         </div>
@@ -178,7 +603,7 @@
 
     </div>
 
-    <!-- Day 2 -->
+    <!-- ── Day 2 ─────────────────────────────────────────── -->
     <div class="day-header fade-in">
       <h2>Day 2 <span style="font-family:'Great Vibes',cursive; font-size:1.8rem; font-weight:400; padding-left:0.5rem;">Saturday, 12 September</span></h2>
     </div>
@@ -189,32 +614,55 @@
 
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <p class="timeline-time">11:00</p>
-          <h3 class="timeline-title">Morning Brunch</h3>
-          <p class="timeline-desc">A relaxed gathering for those who want to continue the celebrations over coffee, pastries and good company.</p>
+          <p class="timeline-time">14:00</p>
+          <h3 class="timeline-title">Lido Time</h3>
+          <p class="timeline-desc">
+            Join us for an afternoon by the sea at <strong>Baia delle Rocce Verdi</strong> —
+            a beautiful lido on the Posillipo coast. Swimming, sun, good company and cold drinks.
+          </p>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <p class="timeline-time">13:00</p>
-          <h3 class="timeline-title">Farewell Lunch</h3>
-          <p class="timeline-desc">A final coastal lunch by the sea — the perfect Neapolitan ending to a beautiful weekend.</p>
+          <p class="timeline-time">18:00</p>
+          <h3 class="timeline-title">Pizza After-Party — Nonno's Garden</h3>
+          <p class="timeline-desc">
+            An informal and joyful gathering at the family's garden — pizza, laughter and the last
+            golden light of the weekend. The perfect way to end the celebrations together.
+          </p>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <p class="timeline-time">16:00</p>
+          <p class="timeline-time">23:00</p>
           <h3 class="timeline-title">Arrivederci</h3>
-          <p class="timeline-desc">Time to explore Napoli before heading home. We'll share local tips on the website!</p>
+          <p class="timeline-desc">
+            End of celebrations. Thank you for being part of our story — we love you all.
+          </p>
         </div>
 
       </div>
 
       <div class="fade-in">
+        <!-- Baia delle Rocce Verdi card -->
+        <div class="card" style="margin-bottom:1.5rem; border-left:3px solid var(--gold);">
+          <p class="caps" style="color:var(--gold); margin-bottom:0.8rem;">Day 2 — Venue 1</p>
+          <h4 style="font-size:1.3rem; margin-bottom:0.4rem;">Baia delle Rocce Verdi</h4>
+          <p style="font-size:0.85rem; color:var(--text-light); line-height:1.8; margin-bottom:0.8rem;">
+            A stunning lido nestled in the Posillipo cliffs — crystal water, volcanic rock platforms
+            and one of Naples' most beautiful natural settings.
+          </p>
+          <a href="https://maps.google.com/?q=Baia+delle+Rocce+Verdi+Napoli" target="_blank" rel="noopener"
+             style="font-size:0.72rem; color:var(--navy); letter-spacing:0.1em; text-decoration:underline; text-underline-offset:3px;">
+            Open in Google Maps →
+          </a>
+        </div>
+
         <div class="card" style="background:var(--navy); border-color:var(--navy-light);">
-          <p class="script" style="font-size:2.2rem; color:var(--gold-light); display:block; margin-bottom:0.8rem;">Day 2 is optional</p>
+          <p class="script" style="font-size:2rem; color:var(--gold-light); display:block; margin-bottom:0.6rem;">Day 2 is optional</p>
           <p style="font-size:0.88rem; color:rgba(250,247,240,0.75); line-height:1.9;">
-            Day 2 is a more casual continuation of the celebration. Please let us know on your RSVP if you'll be joining us — it helps us plan catering and seating.
+            Day 2 is a relaxed and joyful continuation. Please let us know on your RSVP
+            if you'll be joining us — it helps us plan the lido space and pizza quantities!
           </p>
           <a href="rsvp.html" class="btn btn-gold" style="margin-top:1.5rem;">RSVP for Day 2</a>
         </div>

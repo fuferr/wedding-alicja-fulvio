@@ -63,11 +63,12 @@ function doPost(e) {
       data.day1 || 'No',             // E: Attending Day 1?
       data.day2 || 'No',             // F: Attending Day 2?
       sanitise(data.guests) || '1',  // G: Number of guests
-      sanitise(data.dietary),        // H: Dietary requirements
-      sanitise(data.dietary_other),  // I: Dietary other (free text)
-      sanitise(data.song),           // J: Song request
-      sanitise(data.notes),          // K: Message
-      e.parameter.ip || '',          // L: IP (for deduplication if needed)
+      sanitise(data.guest_names),    // H: Full names of all guests
+      sanitise(data.dietary),        // I: Dietary requirements
+      sanitise(data.dietary_other),  // J: Dietary other (free text)
+      sanitise(data.song),           // K: Song request
+      sanitise(data.notes),          // L: Message
+      e.parameter.ip || '',          // M: IP (for deduplication if needed)
     ]);
 
     // Optional email notification
@@ -106,8 +107,9 @@ function getSheet() {
       'Email',
       'Phone',
       'Day 1 — Ceremony & Dinner (11 Sept)',
-      'Day 2 — Farewell Brunch (12 Sept)',
+      'Day 2 — Lido & Pizza Party (12 Sept)',
       'Number of Guests',
+      'Guest Names',
       'Dietary Requirements',
       'Dietary (other details)',
       'Song Request',
